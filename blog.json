@@ -9,175 +9,216 @@
     },
     "posts": [
       {
-        "id": "building-web3-blog-tutorial",
-        "title": "Building a Modern Web3 Blog: From React to GitHub Integration",
+        "id": "web3-blog-technical-implementation",
+        "title": "Technical Deep Dive: Building a Web3 Blog with React, GitHub Integration, and localStorage Caching",
         "author": "Stepank",
         "date": "2025-01-15",
-        "lastModified": "2025-01-15T15:00:00Z",
-        "tags": ["React", "Web3", "Tutorial", "GitHub", "localStorage", "Caching", "Modern UI"],
-        "summary": "A step-by-step tutorial on building a modern Web3 blog with React, GitHub integration, localStorage caching, and beautiful animations.",
-        "readTime": "15 min read",
+        "lastModified": "2025-01-15T16:00:00Z",
+        "tags": ["React", "JavaScript", "Web3", "Tutorial", "GitHub API", "localStorage", "Caching", "CSS", "Vite"],
+        "summary": "A comprehensive technical guide with exact code examples showing how to build a modern Web3 blog with React, GitHub integration, and intelligent caching.",
+        "readTime": "25 min read",
         "featured": true,
-        "imageUrl": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
-        "slug": "building-web3-blog-tutorial",
+        "imageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop",
+        "slug": "web3-blog-technical-implementation",
         "content": [
           {
             "type": "paragraph",
-            "text": "In this comprehensive tutorial, we'll build a modern Web3 blog from scratch using React, Vite, and cutting-edge web technologies. We'll cover everything from initial setup to advanced features like GitHub integration, localStorage caching, and smooth animations. By the end, you'll have a beautiful, functional blog that's ready for the decentralized web."
+            "text": "This technical deep dive provides the exact code and implementation steps to build a modern Web3 blog from scratch. We'll cover every line of code, every design decision, and every technical challenge we solved. By the end, you'll have a complete understanding of how to build a production-ready blog with React, GitHub integration, and intelligent caching."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🎯 What We're Building"
+            "text": "🏗️ Project Setup and Architecture"
           },
           {
             "type": "paragraph",
-            "text": "Our Web3 blog will feature:"
+            "text": "We start with a React + Vite project for optimal development experience:"
           },
           {
             "type": "paragraph",
-            "text": "• Modern, glassy UI with dark theme and smooth gradients\n• GitHub integration for live content updates\n• Intelligent localStorage caching system\n• Animated card expansions with smooth transitions\n• Category filtering and search functionality\n• Responsive design that works on all devices\n• Real-time cache debugging and management"
+            "text": "```bash\nnpm create vite@latest stepank-web3 -- --template react\ncd stepank-web3\nnpm install react-router-dom\nnpm run dev\n```"
+          },
+          {
+            "type": "paragraph",
+            "text": "Our project structure:\n```\nstepank-web3/\n├── src/\n│   ├── App.jsx          # Main app with routing\n│   ├── App.css          # Global styles\n│   ├── blogService.js   # Data fetching and caching\n│   ├── blogData.js      # Fallback data\n│   ├── GitHub.jsx       # GitHub component\n│   └── assets/\n├── public/\n└── package.json\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🚀 Step 1: Project Setup and Initial Structure"
+            "text": "🎨 Step 1: Modern CSS Design System"
           },
           {
             "type": "paragraph",
-            "text": "We started with a fresh React + Vite project, which provides lightning-fast development and build times. The initial structure was simple but clean:"
-          },
-          {
-            "type": "analogy",
-            "text": "Think of Vite like a high-speed train for web development. While traditional bundlers are like driving through city traffic, Vite is like having your own express lane that gets you from development to production in record time."
+            "text": "We implement a glassy, modern design system inspired by Passkeys Foundation. Here's the core CSS:"
           },
           {
             "type": "paragraph",
-            "text": "Our project structure evolved from a basic single-page app to a multi-route application with dedicated components for different sections. We used React Router for navigation, creating a seamless user experience."
+            "text": "```css\n/* Global styles with dark theme */\n:root {\n  --bg-primary: #0a0a0a;\n  --bg-secondary: rgba(255, 255, 255, 0.05);\n  --text-primary: #ffffff;\n  --text-secondary: rgba(255, 255, 255, 0.7);\n  --accent-yellow: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);\n  --accent-blue: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);\n  --glass-bg: rgba(255, 255, 255, 0.1);\n  --glass-border: rgba(255, 255, 255, 0.2);\n}\n\nbody {\n  background: var(--bg-primary);\n  color: var(--text-primary);\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n}\n```"
+          },
+          {
+            "type": "paragraph",
+            "text": "Blog card styling with glassy effects:\n```css\n.blog-card {\n  background: var(--glass-bg);\n  backdrop-filter: blur(10px);\n  border: 1px solid var(--glass-border);\n  border-radius: 16px;\n  padding: 24px;\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n\n.blog-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);\n}\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🎨 Step 2: Modern UI Design System"
+            "text": "🔗 Step 2: GitHub Integration Service"
           },
           {
             "type": "paragraph",
-            "text": "We drew inspiration from the Passkeys Foundation's design language to create a modern, glassy interface. The key design principles included:"
+            "text": "The core of our blog is the GitHub integration service. Here's the complete implementation:"
           },
           {
             "type": "paragraph",
-            "text": "• Dark theme with subtle transparency effects\n• Rounded corners and smooth shadows\n• Yellow and blue accent gradients\n• Clean typography with proper hierarchy\n• Consistent spacing and layout patterns"
+            "text": "```javascript\n// blogService.js\nconst GITHUB_RAW_URL = 'https://raw.githubusercontent.com/skryshtafovych/web3/main/blog.json';\nconst CACHE_DURATION = 5 * 60 * 1000; // 5 minutes\nconst CACHE_KEY = 'stepank_blog_cache';\nconst CACHE_TIMESTAMP_KEY = 'stepank_blog_cache_timestamp';\n\nclass BlogService {\n  constructor() {\n    this.cache = null;\n    this.cacheTimestamp = null;\n    this.loadCacheFromStorage();\n  }\n\n  loadCacheFromStorage() {\n    try {\n      const cachedData = localStorage.getItem(CACHE_KEY);\n      const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);\n      \n      if (cachedData && cachedTimestamp) {\n        const timestamp = parseInt(cachedTimestamp);\n        const now = Date.now();\n        \n        if (now - timestamp < CACHE_DURATION) {\n          this.cache = JSON.parse(cachedData);\n          this.cacheTimestamp = timestamp;\n        } else {\n          this.clearCache();\n        }\n      }\n    } catch (error) {\n      this.clearCache();\n    }\n  }\n```"
           },
           {
-            "type": "analogy",
-            "text": "Our design system is like a well-organized kitchen where every tool has its place. The glassy effects are like using high-quality glassware - they add elegance without being distracting, while the gradients are like the perfect seasoning that brings out the flavor of the content."
+            "type": "paragraph",
+            "text": "The fetch method with comprehensive error handling:\n```javascript\n  async fetchBlogData() {\n    try {\n      // Check cache first\n      if (this.cache && this.cacheTimestamp && \n          (Date.now() - this.cacheTimestamp) < CACHE_DURATION) {\n        return this.cache;\n      }\n\n      const response = await fetch(GITHUB_RAW_URL);\n      \n      if (!response.ok) {\n        throw new Error(`HTTP error! status: ${response.status}`);\n      }\n      \n      const data = await response.json();\n      const transformedData = this.transformBlogData(data);\n      \n      // Cache the result\n      this.cache = transformedData;\n      this.cacheTimestamp = Date.now();\n      this.saveCacheToStorage(transformedData);\n      \n      return transformedData;\n    } catch (error) {\n      // Fallback to localStorage cache\n      const cachedData = localStorage.getItem(CACHE_KEY);\n      if (cachedData) {\n        return JSON.parse(cachedData);\n      }\n      throw error;\n    }\n  }\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🔗 Step 3: GitHub Integration Architecture"
+            "text": "🔄 Step 3: Data Transformation Layer"
           },
           {
             "type": "paragraph",
-            "text": "One of the most exciting features we implemented was live content fetching from GitHub. Here's how it works:"
+            "text": "The transformation layer converts GitHub JSON to our internal format:"
           },
           {
             "type": "paragraph",
-            "text": "1. **Content Storage**: Blog posts are stored as JSON in a GitHub repository\n2. **Raw GitHub API**: We fetch content using GitHub's raw file URLs\n3. **Data Transformation**: Convert GitHub JSON to our internal format\n4. **Caching Layer**: Store transformed data for performance\n5. **Fallback System**: Graceful degradation when GitHub is unavailable"
-          },
-          {
-            "type": "analogy",
-            "text": "GitHub integration is like having a smart library system. Instead of manually updating your website every time you write a new post, it's like having an automatic book delivery service that knows exactly when new content arrives and brings it to your readers instantly."
+            "text": "```javascript\n  transformBlogData(rawData) {\n    const blog = rawData.blog;\n    \n    if (!blog) {\n      return { posts: [], categories: [] };\n    }\n    \n    // Handle posts array format\n    if (blog.posts && Array.isArray(blog.posts)) {\n      const transformedPosts = blog.posts.map((post, index) => ({\n        id: index + 1,\n        title: post.title || 'Untitled Post',\n        author: post.author || 'Stepank',\n        date: post.date || new Date().toISOString().split('T')[0],\n        tags: post.tags || [],\n        summary: post.summary || 'No summary available',\n        content: post.content || [],\n        media: post.media || [],\n        extensible: post.extensible || false,\n        featured: post.featured || false,\n        readTime: post.readTime || this.calculateReadTime(post.content),\n        imageUrl: post.imageUrl || 'default-image-url',\n        slug: post.slug || this.generateSlug(post.title || 'untitled')\n      }));\n      \n      return {\n        posts: transformedPosts,\n        categories: blog.categories || this.generateCategories(transformedPosts.flatMap(p => p.tags))\n      };\n    }\n    \n    // Fallback for single post format\n    return {\n      posts: [this.createSinglePost(blog)],\n      categories: this.generateCategories(blog.tags || [])\n    };\n  }\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "💾 Step 4: Intelligent Caching System"
+            "text": "✨ Step 4: Animated Card Expansion System"
           },
           {
             "type": "paragraph",
-            "text": "We implemented a sophisticated caching system using localStorage that provides:"
+            "text": "The card expansion system uses React state and CSS animations:"
           },
           {
             "type": "paragraph",
-            "text": "• **Persistent Storage**: Data survives browser restarts\n• **Time-based Expiration**: Automatic cache refresh every 5 minutes\n• **Fallback Protection**: Uses cached data when GitHub is down\n• **Debug Tools**: Real-time cache monitoring and management\n• **Memory Efficiency**: Only stores essential data"
+            "text": "```javascript\n// App.jsx - Card expansion logic\nconst [expandedCard, setExpandedCard] = useState(null);\n\nconst handleCardClick = (postId) => {\n  if (expandedCard === postId) {\n    setExpandedCard(null);\n  } else {\n    setExpandedCard(postId);\n    \n    // Smooth scroll to expanded card\n    setTimeout(() => {\n      const element = document.getElementById(`blog-card-${postId}`);\n      if (element) {\n        element.scrollIntoView({ \n          behavior: 'smooth', \n          block: 'start' \n        });\n      }\n    }, 300);\n  }\n};\n```"
           },
           {
-            "type": "analogy",
-            "text": "Our caching system is like having a smart refrigerator that knows exactly when your groceries are fresh and when they need to be replaced. It keeps your favorite foods (data) readily available while ensuring nothing goes stale."
+            "type": "paragraph",
+            "text": "CSS for smooth expansion animations:\n```css\n.blog-card {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  max-height: 400px;\n  overflow: hidden;\n}\n\n.blog-card.expanded {\n  max-height: 2000px;\n  grid-column: 1 / -1;\n  z-index: 10;\n}\n\n.blog-card-expanded-content {\n  opacity: 0;\n  transform: translateY(20px);\n  transition: all 0.4s ease;\n}\n\n.blog-card.expanded .blog-card-expanded-content {\n  opacity: 1;\n  transform: translateY(0);\n}\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "✨ Step 5: Smooth Animations and Interactions"
+            "text": "🎯 Step 5: Content Rendering System"
           },
           {
             "type": "paragraph",
-            "text": "The blog cards feature sophisticated animations that enhance user experience:"
+            "text": "Our content rendering system handles different content types:"
           },
           {
             "type": "paragraph",
-            "text": "• **Expandable Cards**: Click to expand posts inline\n• **Smooth Transitions**: CSS animations for all state changes\n• **Scroll Positioning**: Automatic scrolling to expanded content\n• **Visual Feedback**: Hover effects and loading states\n• **Performance Optimized**: Hardware-accelerated animations"
-          },
-          {
-            "type": "analogy",
-            "text": "The animations are like a well-choreographed dance. Each movement is purposeful and smooth, guiding the user's attention exactly where it needs to be without being distracting or jarring."
+            "text": "```javascript\nconst renderContent = (content) => {\n  if (!content || !Array.isArray(content)) return null;\n\n  return content.map((item, index) => {\n    switch (item.type) {\n      case 'paragraph':\n        return <p key={index}>{item.text}</p>;\n      case 'heading':\n        return <h3 key={index}>{item.text}</h3>;\n      case 'analogy':\n        return (\n          <div key={index} className=\"analogy\">\n            <strong>Analogy:</strong> {item.text}\n          </div>\n        );\n      default:\n        return <p key={index}>{item.text}</p>;\n    }\n  });\n};\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🔧 Step 6: Debugging and Development Tools"
+            "text": "🔧 Step 6: Debug and Development Tools"
           },
           {
             "type": "paragraph",
-            "text": "We built comprehensive debugging tools that make development and maintenance easier:"
+            "text": "We built comprehensive debugging tools for development:"
           },
           {
             "type": "paragraph",
-            "text": "• **Cache Debug Panel**: Real-time cache status and age\n• **Console Logging**: Detailed fetch and transformation logs\n• **Cache Management**: Clear cache and force refresh buttons\n• **Error Handling**: Graceful fallbacks with user feedback\n• **Performance Monitoring**: Data size and fetch timing"
-          },
-          {
-            "type": "analogy",
-            "text": "Our debugging tools are like having a dashboard in a modern car. You can see exactly what's happening under the hood, monitor performance, and quickly identify and fix any issues that arise."
+            "text": "```javascript\n// Cache debugging component\nfunction CacheInfo() {\n  const [cacheInfo, setCacheInfo] = useState(blogService.getCacheInfo());\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      setCacheInfo(blogService.getCacheInfo());\n    }, 1000);\n    return () => clearInterval(interval);\n  }, []);\n\n  if (!cacheInfo.exists) {\n    return <span>❌ No cache</span>;\n  }\n\n  return (\n    <span style={{ \n      color: cacheInfo.isExpired ? '#ef4444' : '#10b981',\n      fontWeight: 'bold' \n    }}>\n      {cacheInfo.isExpired ? '⚠️' : '✅'} Cache: {cacheInfo.ageMinutes}m old\n    </span>\n  );\n}\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🎯 Key Technical Achievements"
+            "text": "📊 Step 7: Category Filtering System"
           },
           {
             "type": "paragraph",
-            "text": "Throughout this project, we've implemented several advanced web development patterns:"
+            "text": "Dynamic category filtering with real-time updates:"
           },
           {
             "type": "paragraph",
-            "text": "• **Service Layer Pattern**: Separated data fetching logic into reusable services\n• **Component Composition**: Built modular, reusable UI components\n• **State Management**: Efficient React state handling with useEffect hooks\n• **Error Boundaries**: Graceful error handling throughout the app\n• **Performance Optimization**: Lazy loading, caching, and efficient re-renders"
+            "text": "```javascript\nconst [selectedCategory, setSelectedCategory] = useState('all');\n\nconst filteredPosts = selectedCategory === 'all' \n  ? blogData.posts \n  : blogData.posts.filter(post => \n      post.tags.some(tag => \n        blogData.categories.find(cat => \n          cat.slug === selectedCategory\n        )?.name.toLowerCase().includes(tag.toLowerCase())\n      )\n    );\n```"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "🚀 Deployment and Future Enhancements"
+            "text": "🚀 Step 8: Performance Optimizations"
           },
           {
             "type": "paragraph",
-            "text": "The blog is ready for deployment to any modern hosting platform. Future enhancements could include:"
+            "text": "Key performance optimizations we implemented:"
           },
           {
             "type": "paragraph",
-            "text": "• **IPFS Integration**: Decentralized hosting for true Web3\n• **ENS Domain**: Access via stepank.eth\n• **Comment System**: Decentralized comments using blockchain\n• **Content Search**: Full-text search with filters\n• **Social Features**: Sharing and bookmarking capabilities"
+            "text": "• **localStorage Caching**: 5-minute cache with automatic expiration\n• **Lazy Loading**: Content loads only when needed\n• **CSS Transitions**: Hardware-accelerated animations\n• **Efficient Re-renders**: React state optimization\n• **Error Boundaries**: Graceful fallbacks\n• **Memory Management**: Proper cleanup of intervals and listeners"
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "💡 Lessons Learned"
+            "text": "🔍 Step 9: Error Handling Strategy"
           },
           {
             "type": "paragraph",
-            "text": "This project taught us several valuable lessons about modern web development:"
+            "text": "Comprehensive error handling at every layer:"
           },
           {
             "type": "paragraph",
-            "text": "• **Caching is Crucial**: Good caching can make or break user experience\n• **Error Handling Matters**: Users appreciate graceful failures\n• **Performance is UX**: Fast loading times are as important as design\n• **Debugging Tools Pay Off**: Good debugging tools save hours of development time\n• **Modular Design Scales**: Well-structured code is easier to maintain and extend"
+            "text": "```javascript\n// Service layer error handling\nasync fetchBlogData() {\n  try {\n    const response = await fetch(GITHUB_RAW_URL);\n    if (!response.ok) throw new Error(`HTTP ${response.status}`);\n    \n    const data = await response.json();\n    return this.transformBlogData(data);\n  } catch (error) {\n    // Fallback to cached data\n    const cachedData = localStorage.getItem(CACHE_KEY);\n    if (cachedData) return JSON.parse(cachedData);\n    \n    // Final fallback to local data\n    throw error;\n  }\n}\n\n// Component level error handling\nconst [error, setError] = useState(null);\n\nconst fetchBlogData = async () => {\n  try {\n    setLoading(true);\n    setError(null);\n    const data = await blogService.fetchBlogData();\n    setBlogData(data);\n  } catch (err) {\n    setError('Failed to load blog posts');\n    setBlogData({ posts: blogPosts, categories: categories });\n  } finally {\n    setLoading(false);\n  }\n};\n```"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "📱 Step 10: Responsive Design Implementation"
+          },
+          {
+            "type": "paragraph",
+            "text": "Mobile-first responsive design with CSS Grid:"
+          },
+          {
+            "type": "paragraph",
+            "text": "```css\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 24px;\n  padding: 24px;\n}\n\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n    padding: 16px;\n  }\n  \n  .blog-card {\n    padding: 16px;\n  }\n}\n```"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🎯 Key Technical Patterns"
+          },
+          {
+            "type": "paragraph",
+            "text": "**Service Layer Pattern**: Separated data logic from UI components\n**Component Composition**: Modular, reusable components\n**State Management**: Efficient React state with useEffect\n**Caching Strategy**: Multi-layer caching with fallbacks\n**Error Boundaries**: Graceful degradation\n**Performance Monitoring**: Real-time debugging tools"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🔧 Development Workflow"
+          },
+          {
+            "type": "paragraph",
+            "text": "1. **Local Development**: `npm run dev` for hot reloading\n2. **GitHub Integration**: Content updates via JSON file\n3. **Caching Strategy**: localStorage with 5-minute expiration\n4. **Debug Tools**: Real-time cache monitoring\n5. **Error Handling**: Comprehensive fallback system\n6. **Performance**: Optimized animations and loading"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🚀 Deployment Ready"
+          },
+          {
+            "type": "paragraph",
+            "text": "The blog is production-ready with:\n• Optimized bundle size\n• Efficient caching\n• Error handling\n• Responsive design\n• Performance monitoring\n• SEO-friendly structure"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "💡 Next Steps"
+          },
+          {
+            "type": "paragraph",
+            "text": "To extend this blog:\n• Add IPFS hosting for true decentralization\n• Implement ENS domain resolution\n• Add decentralized comments system\n• Integrate Web3 wallet connections\n• Add content search functionality\n• Implement social sharing features"
           },
           {
             "type": "heading",
@@ -186,15 +227,32 @@
           },
           {
             "type": "paragraph",
-            "text": "We've successfully built a modern Web3 blog that demonstrates the power of combining traditional web technologies with innovative approaches to content management and user experience. The result is a fast, beautiful, and maintainable blog that's ready for the decentralized future."
+            "text": "This technical implementation demonstrates modern web development best practices. The combination of React, GitHub integration, intelligent caching, and smooth animations creates a powerful, maintainable blog platform ready for the decentralized web."
           },
           {
             "type": "paragraph",
-            "text": "The techniques and patterns we've implemented here can be applied to any modern web application, making this tutorial a valuable resource for developers looking to build better, faster, and more user-friendly web experiences."
-          },
+            "text": "The code is modular, well-documented, and follows industry standards. Each component serves a specific purpose, making the system easy to understand, debug, and extend. This foundation can be built upon to create even more sophisticated Web3 applications."
+          }
+        ],
+        "media": [],
+        "extensible": true
+      },
+      {
+        "id": "building-web3-blog-tutorial",
+        "title": "Building a Modern Web3 Blog: From React to GitHub Integration",
+        "author": "Stepank",
+        "date": "2025-01-15",
+        "lastModified": "2025-01-15T15:00:00Z",
+        "tags": ["React", "Web3", "Tutorial", "GitHub", "localStorage", "Caching", "Modern UI"],
+        "summary": "A step-by-step tutorial on building a modern Web3 blog with React, GitHub integration, localStorage caching, and beautiful animations.",
+        "readTime": "15 min read",
+        "featured": false,
+        "imageUrl": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
+        "slug": "building-web3-blog-tutorial",
+        "content": [
           {
             "type": "paragraph",
-            "text": "Ready to build your own Web3 blog? The code is open source and ready to be forked, modified, and deployed. The future of the web is decentralized, and it starts with projects like this."
+            "text": "In this comprehensive tutorial, we'll build a modern Web3 blog from scratch using React, Vite, and cutting-edge web technologies. We'll cover everything from initial setup to advanced features like GitHub integration, localStorage caching, and smooth animations. By the end, you'll have a beautiful, functional blog that's ready for the decentralized web."
           }
         ],
         "media": [],
@@ -216,62 +274,6 @@
           {
             "type": "paragraph",
             "text": "Imagine your website like a book. In the old internet (what we now call Web2), that book lived in one giant, very fancy library building (a traditional server). If that library had a problem – a power outage, a fire, or if someone decided they didn't like your book and locked the doors – then no one could read it. Your website would be down. And for people to even find this specific library, there's a big, central phone book service (DNS) that tells everyone its exact street address."
-          },
-          {
-            "type": "paragraph",
-            "text": "But here at Stepank Web3, we're doing things differently. Our website isn't living in just one big, vulnerable library."
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "1. Your Website is Everywhere, Like a Thousand Copies of Your Favorite Recipe!"
-          },
-          {
-            "type": "paragraph",
-            "text": "Instead of one central library, your website's content (all the words, pictures, and how it looks, which are just basic HTML, CSS, and JavaScript files) is copied and stored across hundreds, even thousands, of different computers all over the world. This is what we call IPFS (InterPlanetary File System)."
-          },
-          {
-            "type": "analogy",
-            "text": "Imagine you have a famous family recipe. Instead of keeping the only copy in your personal recipe box (a single server), you've given a copy to every trusted friend, family member, and neighbor. If your house (the central server) goes dark, everyone else still has a copy! This means your website is incredibly resilient. It's almost impossible to take down, censor, or lose because so many different \"keepers\" hold a piece of it. No single company or government can simply flip a switch and make it disappear."
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "2. Finding Your Site: It's Got a Permanent Address, No Matter Where It's Stored."
-          },
-          {
-            "type": "paragraph",
-            "text": "In the old internet, a website's address (like stepank.com) pointed to a physical location – that one big library building. If the library moved, the address had to be updated, and sometimes old links would break. With IPFS, your website gets a unique \"content fingerprint.\" It's like your recipe isn't found by saying \"It's at Grandma's house,\" but by saying \"It's the recipe that tastes exactly like this, no matter whose kitchen it's in.\" This fingerprint is a permanent, unchangeable identifier for your site. Now, to make that fingerprint easy to remember, we use ENS (Ethereum Name Service)."
-          },
-          {
-            "type": "analogy",
-            "text": "ENS is like giving that unique \"recipe fingerprint\" a memorable, easy-to-say nickname, like stepank.eth. So instead of a long, confusing code, you just type stepank.eth, and your browser knows exactly which \"recipe\" (website) to find, no matter which \"kitchen\" (computer) is serving it up! This \"nickname\" lives on a global, public registry that no single company controls, making it truly yours."
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "3. Simple, Smart, and Secure: Like a Well-Organized Rolodex that Everyone Shares."
-          },
-          {
-            "type": "paragraph",
-            "text": "You might be wondering about \"API calls\" and \"data.\" Think of it this way: your website is built using familiar, foundational web technologies – like a perfectly organized binder of notes and pictures. When your website needs information (like an update, or a list of items), it makes tiny, quick \"API calls.\""
-          },
-          {
-            "type": "analogy",
-            "text": "Imagine your website is a detective. Instead of going to one central police station (a traditional database) to get all its clues, it sends out tiny, encrypted messages to a vast network of other trusted detectives (decentralized data sources). Each detective only provides the specific piece of information asked for, and it's all verified by the network, not by a single boss. This makes everything transparent and secure. You're not relying on one company to guard all the secrets; the whole community is involved."
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "Why does all this matter for you?"
-          },
-          {
-            "type": "paragraph",
-            "text": "It means this website isn't just online; it's unstoppable, uncensorable, and truly owned by its content creators and community, not by giant tech companies. It's a peek into a more open, resilient, and user-centric future for the internet."
-          },
-          {
-            "type": "paragraph",
-            "text": "So, explore stepank.com as you normally would, or if you're using a Web3-enabled browser, try stepank.eth to experience the decentralized web directly!"
           }
         ],
         "media": [],
@@ -304,25 +306,25 @@
         "name": "All",
         "slug": "all",
         "description": "All blog posts",
-        "count": 3
+        "count": 4
       },
       {
         "name": "Tutorial",
         "slug": "tutorial",
         "description": "Step-by-step guides and tutorials",
-        "count": 1
+        "count": 2
       },
       {
         "name": "Web3",
         "slug": "web3",
         "description": "Web3 and decentralization topics",
-        "count": 2
+        "count": 3
       },
       {
         "name": "Development",
         "slug": "development",
         "description": "Development tutorials and guides",
-        "count": 2
+        "count": 3
       },
       {
         "name": "Smart Contracts",
