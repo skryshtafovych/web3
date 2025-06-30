@@ -9,6 +9,198 @@
     },
     "posts": [
       {
+        "id": "building-web3-blog-tutorial",
+        "title": "Building a Modern Web3 Blog: From React to GitHub Integration",
+        "author": "Stepank",
+        "date": "2025-01-15",
+        "lastModified": "2025-01-15T15:00:00Z",
+        "tags": ["React", "Web3", "Tutorial", "GitHub", "localStorage", "Caching", "Modern UI"],
+        "summary": "A step-by-step tutorial on building a modern Web3 blog with React, GitHub integration, localStorage caching, and beautiful animations.",
+        "readTime": "15 min read",
+        "featured": true,
+        "imageUrl": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
+        "slug": "building-web3-blog-tutorial",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "In this comprehensive tutorial, we'll build a modern Web3 blog from scratch using React, Vite, and cutting-edge web technologies. We'll cover everything from initial setup to advanced features like GitHub integration, localStorage caching, and smooth animations. By the end, you'll have a beautiful, functional blog that's ready for the decentralized web."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🎯 What We're Building"
+          },
+          {
+            "type": "paragraph",
+            "text": "Our Web3 blog will feature:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• Modern, glassy UI with dark theme and smooth gradients\n• GitHub integration for live content updates\n• Intelligent localStorage caching system\n• Animated card expansions with smooth transitions\n• Category filtering and search functionality\n• Responsive design that works on all devices\n• Real-time cache debugging and management"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🚀 Step 1: Project Setup and Initial Structure"
+          },
+          {
+            "type": "paragraph",
+            "text": "We started with a fresh React + Vite project, which provides lightning-fast development and build times. The initial structure was simple but clean:"
+          },
+          {
+            "type": "analogy",
+            "text": "Think of Vite like a high-speed train for web development. While traditional bundlers are like driving through city traffic, Vite is like having your own express lane that gets you from development to production in record time."
+          },
+          {
+            "type": "paragraph",
+            "text": "Our project structure evolved from a basic single-page app to a multi-route application with dedicated components for different sections. We used React Router for navigation, creating a seamless user experience."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🎨 Step 2: Modern UI Design System"
+          },
+          {
+            "type": "paragraph",
+            "text": "We drew inspiration from the Passkeys Foundation's design language to create a modern, glassy interface. The key design principles included:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• Dark theme with subtle transparency effects\n• Rounded corners and smooth shadows\n• Yellow and blue accent gradients\n• Clean typography with proper hierarchy\n• Consistent spacing and layout patterns"
+          },
+          {
+            "type": "analogy",
+            "text": "Our design system is like a well-organized kitchen where every tool has its place. The glassy effects are like using high-quality glassware - they add elegance without being distracting, while the gradients are like the perfect seasoning that brings out the flavor of the content."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🔗 Step 3: GitHub Integration Architecture"
+          },
+          {
+            "type": "paragraph",
+            "text": "One of the most exciting features we implemented was live content fetching from GitHub. Here's how it works:"
+          },
+          {
+            "type": "paragraph",
+            "text": "1. **Content Storage**: Blog posts are stored as JSON in a GitHub repository\n2. **Raw GitHub API**: We fetch content using GitHub's raw file URLs\n3. **Data Transformation**: Convert GitHub JSON to our internal format\n4. **Caching Layer**: Store transformed data for performance\n5. **Fallback System**: Graceful degradation when GitHub is unavailable"
+          },
+          {
+            "type": "analogy",
+            "text": "GitHub integration is like having a smart library system. Instead of manually updating your website every time you write a new post, it's like having an automatic book delivery service that knows exactly when new content arrives and brings it to your readers instantly."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "💾 Step 4: Intelligent Caching System"
+          },
+          {
+            "type": "paragraph",
+            "text": "We implemented a sophisticated caching system using localStorage that provides:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **Persistent Storage**: Data survives browser restarts\n• **Time-based Expiration**: Automatic cache refresh every 5 minutes\n• **Fallback Protection**: Uses cached data when GitHub is down\n• **Debug Tools**: Real-time cache monitoring and management\n• **Memory Efficiency**: Only stores essential data"
+          },
+          {
+            "type": "analogy",
+            "text": "Our caching system is like having a smart refrigerator that knows exactly when your groceries are fresh and when they need to be replaced. It keeps your favorite foods (data) readily available while ensuring nothing goes stale."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "✨ Step 5: Smooth Animations and Interactions"
+          },
+          {
+            "type": "paragraph",
+            "text": "The blog cards feature sophisticated animations that enhance user experience:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **Expandable Cards**: Click to expand posts inline\n• **Smooth Transitions**: CSS animations for all state changes\n• **Scroll Positioning**: Automatic scrolling to expanded content\n• **Visual Feedback**: Hover effects and loading states\n• **Performance Optimized**: Hardware-accelerated animations"
+          },
+          {
+            "type": "analogy",
+            "text": "The animations are like a well-choreographed dance. Each movement is purposeful and smooth, guiding the user's attention exactly where it needs to be without being distracting or jarring."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🔧 Step 6: Debugging and Development Tools"
+          },
+          {
+            "type": "paragraph",
+            "text": "We built comprehensive debugging tools that make development and maintenance easier:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **Cache Debug Panel**: Real-time cache status and age\n• **Console Logging**: Detailed fetch and transformation logs\n• **Cache Management**: Clear cache and force refresh buttons\n• **Error Handling**: Graceful fallbacks with user feedback\n• **Performance Monitoring**: Data size and fetch timing"
+          },
+          {
+            "type": "analogy",
+            "text": "Our debugging tools are like having a dashboard in a modern car. You can see exactly what's happening under the hood, monitor performance, and quickly identify and fix any issues that arise."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🎯 Key Technical Achievements"
+          },
+          {
+            "type": "paragraph",
+            "text": "Throughout this project, we've implemented several advanced web development patterns:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **Service Layer Pattern**: Separated data fetching logic into reusable services\n• **Component Composition**: Built modular, reusable UI components\n• **State Management**: Efficient React state handling with useEffect hooks\n• **Error Boundaries**: Graceful error handling throughout the app\n• **Performance Optimization**: Lazy loading, caching, and efficient re-renders"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🚀 Deployment and Future Enhancements"
+          },
+          {
+            "type": "paragraph",
+            "text": "The blog is ready for deployment to any modern hosting platform. Future enhancements could include:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **IPFS Integration**: Decentralized hosting for true Web3\n• **ENS Domain**: Access via stepank.eth\n• **Comment System**: Decentralized comments using blockchain\n• **Content Search**: Full-text search with filters\n• **Social Features**: Sharing and bookmarking capabilities"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "💡 Lessons Learned"
+          },
+          {
+            "type": "paragraph",
+            "text": "This project taught us several valuable lessons about modern web development:"
+          },
+          {
+            "type": "paragraph",
+            "text": "• **Caching is Crucial**: Good caching can make or break user experience\n• **Error Handling Matters**: Users appreciate graceful failures\n• **Performance is UX**: Fast loading times are as important as design\n• **Debugging Tools Pay Off**: Good debugging tools save hours of development time\n• **Modular Design Scales**: Well-structured code is easier to maintain and extend"
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "🎉 Conclusion"
+          },
+          {
+            "type": "paragraph",
+            "text": "We've successfully built a modern Web3 blog that demonstrates the power of combining traditional web technologies with innovative approaches to content management and user experience. The result is a fast, beautiful, and maintainable blog that's ready for the decentralized future."
+          },
+          {
+            "type": "paragraph",
+            "text": "The techniques and patterns we've implemented here can be applied to any modern web application, making this tutorial a valuable resource for developers looking to build better, faster, and more user-friendly web experiences."
+          },
+          {
+            "type": "paragraph",
+            "text": "Ready to build your own Web3 blog? The code is open source and ready to be forked, modified, and deployed. The future of the web is decentralized, and it starts with projects like this."
+          }
+        ],
+        "media": [],
+        "extensible": true
+      },
+      {
         "id": "decentralized-hosting-2025",
         "title": "What Does Decentralized Hosting Mean for You?",
         "author": "Stepank",
@@ -17,7 +209,7 @@
         "tags": ["Web3", "Decentralization", "IPFS", "ENS", "Hosting"],
         "summary": "A simple explanation of decentralized hosting and why it matters for the future of the web.",
         "readTime": "8 min read",
-        "featured": true,
+        "featured": false,
         "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=250&fit=crop",
         "slug": "what-does-decentralized-hosting-mean",
         "content": [
@@ -112,19 +304,25 @@
         "name": "All",
         "slug": "all",
         "description": "All blog posts",
-        "count": 2
+        "count": 3
+      },
+      {
+        "name": "Tutorial",
+        "slug": "tutorial",
+        "description": "Step-by-step guides and tutorials",
+        "count": 1
       },
       {
         "name": "Web3",
         "slug": "web3",
         "description": "Web3 and decentralization topics",
-        "count": 1
+        "count": 2
       },
       {
         "name": "Development",
         "slug": "development",
         "description": "Development tutorials and guides",
-        "count": 1
+        "count": 2
       },
       {
         "name": "Smart Contracts",
