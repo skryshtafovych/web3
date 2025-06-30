@@ -10,6 +10,107 @@
     "posts": [
 
       {
+  "id": "deploying-react-to-gcloud-app-engine",
+  "title": "From Vite to the Cloud: A Modern React App's Journey to Google App Engine",
+  "author": "Stepank",
+  "date": "2025-07-01",
+  "lastModified": "2025-07-01T14:00:00Z",
+  "tags": ["React", "Vite", "Node.js", "Google Cloud", "App Engine", "Deployment", "DevOps", "CI/CD"],
+  "summary": "A deep dive into deploying a full-stack Vite and Node.js application to Google App Engine, covering the common hurdles and platform-specific solutions.",
+  "readTime": "8 min read",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=250&fit=crop",
+  "slug": "deploying-react-to-gcloud-app-engine",
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Deploying a modern full-stack application is more than just getting your code on a server; it's a journey through environments, dependencies, and platform-specific quirks. Recently, I went through this process to deploy a dynamic portfolio built with React (via Vite) and a Node.js backend to Google App Engine. This post details the steps, the unexpected hurdles, and the solutions that led to a successful, scalable deployment."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The Local Setup: A Tale of Two Servers"
+    },
+    {
+      "type": "paragraph",
+      "text": "Our application started with a common development pattern:\n• **A React Frontend:** Built with Vite, providing a fast development server with Hot Module Replacement (HMR).\n• **A Node.js Backend:** An Express server responsible for one key task—securely handling API keys to communicate with Google's Gemini API for dynamic content generation."
+    },
+    {
+      "type": "paragraph",
+      "text": "Locally, we used `concurrently` to run both the Vite dev server and our Node.js server with a single command: `npm run dev`. This worked perfectly, but production is a different beast entirely."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The Goal: A Lean, Cost-Effective Deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "The goal was to host the application on Google App Engine in the most resource-efficient way possible. We configured our `app.yaml` to use the smallest instance class and scale to zero, which is ideal for a portfolio site."
+    },
+    {
+        "type": "code",
+        "language": "yaml",
+        "code": "# app.yaml\nruntime: nodejs20\ninstance_class: F1\nautomatic_scaling:\n  max_instances: 1"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the goal set, the deployment process began, and so did the real-world challenges."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The Deployment Gauntlet: Solving Real-World Errors"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Hurdle 1: `vite: not found`"
+    },
+    {
+      "type": "paragraph",
+      "text": "After the first deployment attempt, the logs hit us with a clear error: `sh: 1: vite: not found`.\n\n**The Cause:** Our `package.json` had `vite` and `@vitejs/plugin-react` listed in `devDependencies`. Production environments like Google App Engine often run `npm install --omit=dev`, skipping these dependencies.\n\n**The Solution:** We manually edited the `package.json` file to move both `vite` and `@vitejs/plugin-react` from `devDependencies` to the main `dependencies` section, ensuring they would be installed in the production environment."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Hurdle 2: `EROFS: read-only file system`"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the dependencies fixed, a new error emerged: `EROFS: read-only file system`.\n\n**The Cause:** Security is paramount on cloud platforms. Google App Engine runs your application in a read-only filesystem. Our `start` script at the time (`npm run build && node server.js`) was trying to build the project inside this read-only environment, causing it to crash.\n\n**The Solution:** This required separating the **build step** from the **run step**. We leveraged a feature of Google Cloud Build by adding a special script to our `package.json` called `gcp-build`. When deploying, Google Cloud runs this script in a temporary, *writable* environment. We then changed the `start` script back to its simple, single purpose of `node server.js`."
+    },
+     {
+        "type": "code",
+        "language": "json",
+        "code": "\"scripts\": {\n  \"start\": \"node server.js\",\n  \"gcp-build\": \"npm run build\"\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Hurdle 3: Port Configuration"
+    },
+    {
+      "type": "paragraph",
+      "text": "The final hurdle was ensuring our server listened on the correct port. Our server was hardcoded to listen on port `3001`, but Google App Engine assigns a port dynamically via the `PORT` environment variable.\n\n**The Solution:** A simple but critical one-line change in `server.js`:\n`const port = process.env.PORT || 3001;`\nThis makes the server respect the environment's assigned port while still allowing it to run on port 3001 for local development."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The Final Workflow"
+    },
+    {
+      "type": "paragraph",
+      "text": "With these changes, our deployment process was robust and reliable:\n1. We run `gcloud app deploy`.\n2. Google Cloud Build installs all dependencies.\n3. It finds and executes the `gcp-build` script, creating the production-ready `dist` folder.\n4. The final application is deployed to a read-only instance.\n5. App Engine runs the `start` script, launching the Node.js server on the correct port, which then serves the pre-built frontend."
+    },
+    {
+      "type": "paragraph",
+      "text": "The journey from localhost to a live URL was a fantastic learning experience. It highlighted the critical differences between development and production and reinforced the importance of understanding the deployment platform's lifecycle. By tackling each error systematically, we built a stable, scalable, and secure home for the application in the cloud."
+    }
+  ]
+},
+
+      {
         "id": "ai-background-generation",
         "title": "AI-Powered Background Generation: Creating Unique Visual Experiences with Browser-Based Pattern Generation",
         "author": "Stepank",
