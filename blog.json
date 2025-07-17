@@ -1092,8 +1092,81 @@
             "text": "Try generating a new background pattern on this page and experience the magic of AI-powered personalization firsthand. Every click creates a new visual story, unique to your digital fingerprint and preferences."
           }
         ]
+      },
+      {
+        "id": "openwrt-5g-modem",
+        "title": "Getting a 5G USB Modem Working with OpenWRT",
+        "author": "Stepank",
+        "date": "2025-07-02",
+        "lastModified": "2025-07-02T14:00:00Z",
+        "tags": ["OpenWRT", "5G", "USB Modem", "Networking", "DIY"],
+        "summary": "A user's journey to get a Pantech 5G USB modem working on a router running OpenWRT, including the challenges and the eventual solution involving a virtual bridge.",
+        "readTime": "6 min read",
+        "featured": true,
+        "imageUrl": "https://images.unsplash.com/photo-1624204386404-039c51a3b5a0?w=400&h=250&fit=crop",
+        "slug": "openwrt-5g-modem",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Getting a new piece of hardware to work with open-source software can sometimes feel like a dark art. This post details my experience getting a Pantech 5G USB modem to work on my router running OpenWRT. It was a journey of trial, error, and eventually, a working solution."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "The Challenge: 5G on OpenWRT"
+          },
+          {
+            "type": "paragraph",
+            "text": "OpenWRT is a powerful, flexible operating system for routers. However, it doesn't always have out-of-the-box support for the latest and greatest hardware. In my case, I had a Pantech 5G USB modem that I wanted to use as my primary internet connection. The modem worked perfectly when plugged into my computer, but getting it to work with my OpenWRT router was another story."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "The Hardware: Pantech UML290"
+          },
+          {
+            "type": "paragraph",
+            "text": "The modem in question is a Pantech UML290. It's a 4G LTE modem, but the principles should be similar for 5G modems. When plugged into a computer, it shows up as a network interface, but on OpenWRT, it was being detected as a generic USB device. This was the first hurdle to overcome."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "The Solution: A Virtual Bridge"
+          },
+          {
+            "type": "paragraph",
+            "text": "After much research and experimentation, the solution turned out to be creating a virtual bridge. Here's a high-level overview of the steps I took:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "**Install necessary packages:** I had to install several packages on my OpenWRT router to support USB modems and the specific protocol my modem uses. These packages included `kmod-usb-net-rndis`, `usb-modeswitch`, and `luci-proto-ncm`.",
+              "**Configure the modem:** I had to use `usb_modeswitch` to switch the modem from a storage device to a modem. This is a common step for many USB modems.",
+              "**Create a new interface:** In the OpenWRT web interface, I created a new interface for the modem. I set the protocol to 'NCM' and selected the correct USB device.",
+              "**Create a virtual bridge:** This was the key step. I created a new bridge interface and added both the new modem interface and my LAN interface to it. This allowed the modem to share its internet connection with the rest of my network."
+            ]
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "The Challenges"
+          },
+          {
+            "type": "paragraph",
+            "text": "The biggest challenge was the lack of clear documentation. While there are many guides for older 3G and 4G modems, there wasn't a single guide that covered my specific modem and the latest version of OpenWRT. I had to piece together information from various forum posts and tutorials."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Conclusion"
+          },
+          {
+            "type": "paragraph",
+            "text": "Getting my Pantech 5G USB modem to work with OpenWRT was a rewarding experience. It took some effort, but I now have a fast, reliable internet connection that's completely under my control. If you're trying to do something similar, my advice is to be persistent, be willing to experiment, and don't be afraid to ask for help on the OpenWRT forums. The community is full of knowledgeable people who are willing to help."
+          }
+        ]
       }
-    ],
+    ]
     "categories": [
       {
         "name": "All",
