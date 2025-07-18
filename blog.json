@@ -1165,6 +1165,101 @@
             "text": "Getting my Pantech 5G USB modem to work with OpenWRT was a rewarding experience. It took some effort, but I now have a fast, reliable internet connection that's completely under my control. If you're trying to do something similar, my advice is to be persistent, be willing to experiment, and don't be afraid to ask for help on the OpenWRT forums. The community is full of knowledgeable people who are willing to help."
           }
         ]
+      },
+      {
+        "id": "antenna-connectors",
+        "title": "A Guide to Antenna Connectors: Demystifying Diameters, Polarity, and Tuning",
+        "author": "Stepank",
+        "date": "2025-07-03",
+        "lastModified": "2025-07-03T14:00:00Z",
+        "tags": ["Antenna", "Connectors", "RF", "DIY", "Electronics"],
+        "summary": "A comprehensive guide to understanding antenna connectors, including their diameters, types, gender, reverse polarity, and the basics of antenna tuning.",
+        "readTime": "8 min read",
+        "featured": true,
+        "imageUrl": "https://images.unsplash.com/photo-1582823450414-8e2d3d08e23d?w=400&h=250&fit=crop",
+        "slug": "antenna-connectors-guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When working with wireless devices, you'll inevitably encounter a wide variety of antenna connectors. Understanding the differences between them is crucial for ensuring a proper connection and optimal performance. This guide will walk you through the most common types of antenna connectors, their sizes, and other important concepts like polarity and tuning."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Threaded Connectors: For Secure Connections"
+          },
+          {
+            "type": "paragraph",
+            "text": "These connectors use a screw-on mechanism, providing a robust and reliable link."
+          },
+          {
+            "type": "list",
+            "items": [
+              "**N-Type:** A larger connector designed for high-power applications. Outer Diameter (Male): ~0.80 inches (20.3 mm), Outer Diameter (Female): ~0.62 inches (15.7 mm).",
+              "**TNC (Threaded Neill-Concelman):** A threaded version of the BNC for more vibration-prone environments. Outer Diameter (Male): ~0.59 inches (15.0 mm), Outer Diameter (Female): ~0.378 inches (9.6 mm).",
+              "**SMA (SubMiniature version A):** Very common in consumer and professional wireless equipment. Outer Diameter (Male): ~0.312 inches (7.9 mm), Female Barrel Outer Diameter: ~0.242 inches (6.15 mm)."
+            ]
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Bayonet and Snap-On Connectors: For Quick Mating"
+          },
+          {
+            "type": "paragraph",
+            "text": "These connectors are designed for faster and easier connections."
+          },
+          {
+            "type": "list",
+            "items": [
+              "**BNC (Bayonet Neill-Concelman):** Widely used in professional video and test equipment. Outer Diameter (Male): ~0.57 inches (14.5 mm), Outer Diameter (Female): ~0.43 inches (11.0 mm).",
+              "**SMB (SubMiniature version B):** A smaller snap-on connector. Outer Diameter (Plug): ~0.22 inches (5.6 mm)."
+            ]
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Micro-Connectors: For Compact Devices"
+          },
+          {
+            "type": "paragraph",
+            "text": "These are some of the smallest connectors, ideal for use in laptops, embedded systems, and other small electronics."
+          },
+          {
+            "type": "list",
+            "items": [
+              "**MCX (Micro Coaxial):** Outer Diameter (Plug): ~0.14 inches (3.6 mm).",
+              "**MMCX (Micro-Miniature Coaxial):** Outer Diameter (Plug): ~0.098 inches (2.5 mm)."
+            ]
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Understanding Connector Gender and Reverse Polarity"
+          },
+          {
+            "type": "paragraph",
+            "text": "Connectors have a gender: male or female. Typically, the male connector has a center pin, and the female connector has a receptacle for that pin. However, there's a twist: reverse polarity (RP) connectors. An RP-SMA male connector, for example, will have a barrel like a standard male SMA, but instead of a center pin, it will have a receptacle. This was intended to prevent consumers from connecting antennas that could damage the device, but it can be a source of confusion."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Antenna Tuning and Signal Preference"
+          },
+          {
+            "type": "paragraph",
+            "text": "Beyond the physical connection, the antenna itself plays a huge role in signal quality. Antennas are tuned to specific frequency bands. Using an antenna that isn't tuned for the correct frequency will result in poor performance. Additionally, antennas have different radiation patterns. Some are omnidirectional, sending and receiving signals in all directions, while others are directional, focusing the signal in a specific direction. The right antenna for the job depends on your specific application."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Conclusion"
+          },
+          {
+            "type": "paragraph",
+            "text": "Choosing the right antenna and connector is a critical step in setting up any wireless system. By understanding the different types of connectors, their sizes, and the concepts of polarity and tuning, you can ensure that you're getting the best possible performance from your equipment."
+          }
+        ]
       }
     ]
     "categories": [
